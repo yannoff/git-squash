@@ -1,0 +1,16 @@
+#!/bin/bash
+#
+# @project git-stash
+# @author  yannoff
+# @license MIT
+
+# FIXME Recursively find GIT_HOME from deepest to top-level
+GIT_HOME=$PWD/.git
+
+MSGFILE=$GIT_HOME/GITSQUASH_MSG
+
+# TODO : Implement custom format for git-log output
+git log --reverse -$1 > $MSGFILE
+git reset HEAD~$1
+git add .
+git commit --edit --file $MSGFILE && rm $MSGFILE
